@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 
 dotenv.config({ path: './config/.env' });
 
+
 app.use((error, req, res, next) => {
   const data = error.data;
   const message = error.message;
