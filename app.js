@@ -21,6 +21,10 @@ app.use((req, res, next) => {
 
 dotenv.config({ path: './config/.env' });
 
+app.use((req, res, next) => {
+  next();
+});
+
 mongoose
   .connect(process.env.MONGOURI)
   .then((result) => {
