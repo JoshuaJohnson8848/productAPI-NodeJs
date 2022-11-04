@@ -19,8 +19,11 @@ app.use((req, res, next) => {
   next();
 });
 
+const productRouter = require('./routes/product');
+
 dotenv.config({ path: './config/.env' });
 
+app.use('/product', productRouter);
 
 app.use((error, req, res, next) => {
   const data = error.data;
