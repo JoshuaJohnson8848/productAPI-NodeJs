@@ -51,7 +51,8 @@ exports.getAll = async (req, res, next) => {
 };
 
 exports.getById = async (req, res, next) => {
-  const productId = req.params.productId;
+  const productId = req.query.Id;
+
   try {
     const product = await Product.findById(productId);
     if (!product) {
@@ -59,9 +60,7 @@ exports.getById = async (req, res, next) => {
       error.status = 422;
       throw error;
     }
-    res
-      .status(200)
-      .json({ message: 'Product Fetched Successfully', product: product });
+    res.status(200).json({ message: 'Product Fetched Successfully', product });
   } catch (err) {
     if (!err.status) {
       err.status = 500;
