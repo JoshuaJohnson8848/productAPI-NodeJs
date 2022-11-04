@@ -38,12 +38,30 @@ exports.getAll = async (req, res, next) => {
       error.status = 422;
       throw error;
     }
+    res.status(200).json({
+      message: 'All Products Fetched Successfully',
+      product: products,
+    });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
+
+exports.getById = async (req, res, next) => {
+  const productId = req.params.productId;
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      const error = new Error('Selected Product Not Found');
+      error.status = 422;
+      throw error;
+    }
     res
       .status(200)
-      .json({
-        message: 'All Products Fetched Successfully',
-        product: products,
-      });
+      .json({ message: 'Product Fetched Successfully', product: product });
   } catch (err) {
     if (!err.status) {
       err.status = 500;
