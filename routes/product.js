@@ -7,4 +7,4 @@ router.post('/addProduct', productController.addProduct);
 
 router.get('/getAll', productController.getAll);
 
-router.module.exports = router;
+module.exports = router;
