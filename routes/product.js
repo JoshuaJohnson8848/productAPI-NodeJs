@@ -9,4 +9,6 @@ router.get('/getAll', productController.getAll);
 
 router.get('/getById', productController.getById);
 
+router.put('/update', productController);
+
 module.exports = router;
