@@ -72,7 +72,7 @@ exports.getById = async (req, res, next) => {
 exports.updateProduct = async (req, res, next) => {
   const productId = req.query.productId;
   const title = req.body.title;
-  const imageUrl = req.bod.imageUrl;
+  const imageUrl = req.body.imageUrl;
   const description = req.body.description;
   const price = req.body.price;
   try {
@@ -92,12 +92,10 @@ exports.updateProduct = async (req, res, next) => {
       error.status = 422;
       throw error;
     }
-    res
-      .status(200)
-      .json({
-        message: 'Product Updated Succesfully',
-        product: updatedProduct,
-      });
+    res.status(200).json({
+      message: 'Product Updated Succesfully',
+      product: updatedProduct,
+    });
   } catch (err) {
     if (!err.status) {
       err.status = 500;
