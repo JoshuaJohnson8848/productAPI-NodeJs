@@ -103,3 +103,21 @@ exports.updateProduct = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteById = async (req, res, next) => {
+  const productId = req.query.productId;
+  try {
+    const product = await Product.findByIdAndRemove(productId);
+    if (!product) {
+      const error = new Error('No Products Deleted');
+      error.status = 422;
+      throw error;
+    }
+    res.status(200).json({ message: 'Selected Product Deleted Successfully' });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
