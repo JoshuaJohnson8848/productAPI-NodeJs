@@ -68,3 +68,38 @@ exports.getById = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.updateProduct = async (req, res, next) => {
+  const productId = req.query.productId;
+  const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
+  const description = req.body.description;
+  const price = req.body.price;
+  try {
+    const existingProduct = await Product.findById(productId);
+    if (!existingProduct) {
+      const error = new Error('Product Not Found');
+      error.status = 422;
+      throw error;
+    }
+    existingProduct.title = title;
+    existingProduct.imageUrl = imageUrl;
+    existingProduct.description = description;
+    existingProduct.price = price;
+    const updatedProduct = await existingProduct.save();
+    if (!updatedProduct) {
+      const error = new Error('Product Not Updated');
+      error.status = 422;
+      throw error;
+    }
+    res.status(200).json({
+      message: 'Product Updated Succesfully',
+      product: updatedProduct,
+    });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
