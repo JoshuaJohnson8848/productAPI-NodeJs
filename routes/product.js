@@ -13,4 +13,6 @@ router.put('/update', productController.updateProduct);
 
 router.delete('/deleteById', productController.deleteById);
 
+router.delete('/deleteAll', productController.deleteAll);
+
 module.exports = router;

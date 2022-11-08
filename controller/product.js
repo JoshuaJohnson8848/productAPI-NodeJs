@@ -121,3 +121,20 @@ exports.deleteById = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteAll = async (req, res, next) => {
+  try {
+    const deletedAll = await Product.deleteMany();
+    if (!deletedAll) {
+      const error = new Error('Proucts Not Deleted, SOmething Went Wrong');
+      error.status = 422;
+      throw error;
+    }
+    res.status(200).json({ message: 'All Products Deleted Successfully' });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
