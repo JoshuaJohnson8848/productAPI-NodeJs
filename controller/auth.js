@@ -6,7 +6,7 @@ exports.signup = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   try {
-    const existingEmail = await User.find({ email: email });
+    const existingEmail = await User.findOne({ email: email });
     if (existingEmail) {
       const error = new Error('Email Already Exist , Try A Different Email');
       error.status = 422;
