@@ -20,12 +20,12 @@ app.use((req, res, next) => {
 });
 
 const productRouter = require('./routes/product');
-const userRouter = require('./routes/auth');
+const authRouter = require('./routes/auth');
 
 dotenv.config({ path: './config/.env' });
 
 app.use('/product', productRouter);
-app.use('/auth', userRouter);
+app.use('/auth', authRouter);
 
 app.use((error, req, res, next) => {
   const data = error.data;
