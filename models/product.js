@@ -19,6 +19,8 @@ const productSchema = new Schema(
       type: Number,
       required: true,
     },
+    creator: Schema.Types.ObjectId,
+    ref: 'User',
   },
   { timestamps: true }
 );
