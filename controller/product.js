@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const isAuth = require('../middleware/isAuth');
 
 exports.addProduct = async (req, res, next) => {
   const title = req.body.title;
@@ -6,6 +7,11 @@ exports.addProduct = async (req, res, next) => {
   const description = req.body.description;
   const price = req.body.price;
   try {
+    if (!isAuth) {
+      const error = new Error('Not Authenticated');
+      error.status = 401;
+      throw error;
+    }
     const product = new Product({
       title: title,
       imageUrl: imageUrl,
@@ -32,6 +38,11 @@ exports.addProduct = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
+    if (!isAuth) {
+      const error = new Error('Not Authenticated');
+      error.status = 401;
+      throw error;
+    }
     const products = await Product.find();
     if (!products) {
       const error = new Error('Products Not Found');
@@ -52,8 +63,12 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
   const productId = req.params.id;
-
   try {
+    if (!isAuth) {
+      const error = new Error('Not Authenticated');
+      error.status = 401;
+      throw error;
+    }
     const product = await Product.findById(productId);
     if (!product) {
       const error = new Error('Selected Product Not Found');
@@ -76,6 +91,11 @@ exports.updateProduct = async (req, res, next) => {
   const description = req.body.description;
   const price = req.body.price;
   try {
+    if (!isAuth) {
+      const error = new Error('Not Authenticated');
+      error.status = 401;
+      throw error;
+    }
     const existingProduct = await Product.findById(productId);
     if (!existingProduct) {
       const error = new Error('Product Not Found');
@@ -107,6 +127,11 @@ exports.updateProduct = async (req, res, next) => {
 exports.deleteById = async (req, res, next) => {
   const productId = req.params.id;
   try {
+    if (!isAuth) {
+      const error = new Error('Not Authenticated');
+      error.status = 401;
+      throw error;
+    }
     const product = await Product.findByIdAndRemove(productId);
     if (!product) {
       const error = new Error('No Products Deleted');
@@ -124,6 +149,11 @@ exports.deleteById = async (req, res, next) => {
 
 exports.deleteAll = async (req, res, next) => {
   try {
+    if (!isAuth) {
+      const error = new Error('Not Authenticated');
+      error.status = 401;
+      throw error;
+    }
     const deletedAll = await Product.deleteMany();
     if (!deletedAll) {
       const error = new Error('Proucts Not Deleted, SOmething Went Wrong');
