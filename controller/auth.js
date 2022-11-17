@@ -59,9 +59,10 @@ exports.login = async (req, res, next) => {
         email: loadedUser.email,
         userId: loadedUser._id.toString(),
       },
-      'somesupersupersecret',
+      process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
+    console.log(process.env.JWT_SECRET);
     res.status(200).json({ token: token, userId: loadedUser._id.toString() });
   } catch (err) {
     if (!err.status) {
