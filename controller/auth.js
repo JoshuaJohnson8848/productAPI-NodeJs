@@ -62,7 +62,6 @@ exports.login = async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-    console.log(process.env.JWT_SECRET);
     res.status(200).json({ token: token, userId: loadedUser._id.toString() });
   } catch (err) {
     if (!err.status) {
