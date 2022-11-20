@@ -30,7 +30,7 @@ app.use('/auth', authRouter);
 app.use((error, req, res, next) => {
   const data = error.data;
   const message = error.message;
-  const status = error.status;
+  const status = error.status || 500;
   res.status(status).json({ message: message, data: data });
   next();
 });
