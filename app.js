@@ -1,6 +1,10 @@
 const express = require('express');
+const path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
 
 app.use(express.json());
@@ -17,6 +21,16 @@ app.use((req, res, next) => {
     'Authorization'
   );
   next();
+});
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images');
+  },
+  filename: (req, file, cb) => {
+    // cb(null, uuidv4());
+    cb(null, uuidv4() + '-' + file.originalname);
+  },
 });
 
 const productRouter = require('./routes/product');
