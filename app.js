@@ -51,6 +51,11 @@ const authRouter = require('./routes/auth');
 
 dotenv.config({ path: './config/.env' });
 
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
+);
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 app.use('/product', productRouter);
 app.use('/auth', authRouter);
 
