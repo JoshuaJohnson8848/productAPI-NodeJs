@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
 
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
