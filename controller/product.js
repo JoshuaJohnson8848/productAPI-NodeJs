@@ -3,7 +3,7 @@ const isAuth = require('../middleware/isAuth');
 
 exports.addProduct = async (req, res, next) => {
   const title = req.body.title;
-  const imageUrl = req.body.imageUrl;
+  const imageUrl = req.file;
   const description = req.body.description;
   const price = req.body.price;
   try {
@@ -14,7 +14,7 @@ exports.addProduct = async (req, res, next) => {
     }
     const product = new Product({
       title: title,
-      imageUrl: imageUrl,
+      imageUrl: imageUrl.path,
       description: description,
       price: price,
     });
